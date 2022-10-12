@@ -1,4 +1,4 @@
-import * as https from 'node:https'
+const https = require('https')
 
 class GetPage {
   async getHtml(tags, page) {
@@ -31,4 +31,4 @@ class GetPage {
   }
 }
 
-export default new GetPage();
+module.exports = new GetPage();

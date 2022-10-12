@@ -1,9 +1,10 @@
-import GetPage from "./utils/GetPage.mjs";
+const GetPage = require("./utils/GetPage.js");
 
 class BooruApi {
+
   async GetImage(tags, page) {
     return GetPage.getHtml(tags, page);
   }
 }
 
-export default new BooruApi();
+module.exports = BooruApi;
