@@ -20,13 +20,23 @@ class GetPage {
       .filter(str => str.includes('thumbnails'))
       .map(el => {
 
-        const [ssid, images, lastPid] = [
-          el.split('/').at(-1).replace(/thumbnail_|\?(.)+$/gmi, ''),
-          el.split('/').at(-2),
-          htmlText.match(/pid=(.)+?alt="last page"/gmi)[0].split(';').at(-1).replace(/\D/gmi, '')/40
-        ]
+        try {
+          const [ssid, images, lastPid] = [
+            el.split('/').at(-1).replace(/thumbnail_|\?(.)+$/gmi, ''),
+            el.split('/').at(-2),
+            htmlText.match(/pid=(.)+?alt="last page"/gmi)[0].split(';').at(-1).replace(/\D/gmi, '')/40
+          ]
+  
+          return { ssid, images, lastPid, source: `https://safebooru.org//images/${images}/${ssid}` }
+        } catch (e) {
 
-        return { ssid, images, lastPid, source: `https://safebooru.org//images/${images}/${ssid}` }
+          const [ssid, images] = [
+            el.split('/').at(-1).replace(/thumbnail_|\?(.)+$/gmi, ''),
+            el.split('/').at(-2)
+          ]
+          
+          return { ssid, images, source: `https://safebooru.org//images/${images}/${ssid}` } 
+        }
       })
   }
 }
