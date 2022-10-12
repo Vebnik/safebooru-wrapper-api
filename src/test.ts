@@ -1,4 +1,4 @@
 import BooruApi from './BooruApi'
 
-BooruApi.GetImage(['loli'], 0)
+BooruApi.GetImage(['cyberpunk_edgerunners'], 0)
   .then((src) => console.log(src))
