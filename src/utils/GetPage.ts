@@ -1,10 +1,11 @@
 import * as https from 'node:https'
+import {ImageItem} from '../interface/BooruResponse'
 
 class GetPage {
-  public async getHtml(tags: string, page: number): Promise<Array<string>> {
+  public async getHtml(tags: string[], page: number): Promise<Array<ImageItem>> {
 
     return new Promise(resolve => {
-      https.get(`https://safebooru.org/index.php?page=post&s=list&tags=${tags}&pid=${page}`, res => {
+      https.get(`https://safebooru.org/index.php?page=post&s=list&tags=${tags.join('+')}&pid=${page}`, res => {
 
         const buffer: Array<string> = [];
   
@@ -14,14 +15,14 @@ class GetPage {
     })
   }
 
-  private async parsSource(htmlText: any): Promise<Array<string>> {
+  private async parsSource(htmlText: any): Promise<Array<ImageItem>> {
     return htmlText
       .match(/src="(.)+?"/gm)
       .filter(str => str.includes('thumbnails'))
       .map(el => {
 
         const [ssid, images, lastPid] = [
-          el.split('/').at(-1).replace(/thumbnail_|\?(.)+$/gmi, ''), 
+          el.split('/').at(-1).replace(/thumbnail_|\?(.)+$/gmi, ''),
           el.split('/').at(-2),
           htmlText.match(/pid=(.)+?alt="last page"/gmi)[0].split(';').at(-1).replace(/\D/gmi, '')/40
         ]

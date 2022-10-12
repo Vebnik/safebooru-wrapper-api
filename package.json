@@ -4,7 +4,7 @@
   "description": "api wrapper",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node-dev --watch ./src --transpile-only ./src/index.ts"
+    "test": "ts-node-dev --watch ./src --transpile-only ./src/test.ts"
   },
   "keywords": [
     "api"
