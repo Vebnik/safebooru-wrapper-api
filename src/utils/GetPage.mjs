@@ -1,13 +1,12 @@
 import * as https from 'node:https'
-import {ImageItem} from '../interface/BooruResponse'
 
 class GetPage {
-  public async getHtml(tags: string[], page: number): Promise<Array<ImageItem>> {
+  async getHtml(tags, page) {
 
     return new Promise(resolve => {
       https.get(`https://safebooru.org/index.php?page=post&s=list&tags=${tags.join('+')}&pid=${page}`, res => {
 
-        const buffer: Array<string> = [];
+        const buffer = [];
   
         res.on('data', string => buffer.push(string))
         res.on('close', () => this.parsSource(buffer.join('')).then(srcArr => resolve(srcArr)))
@@ -15,7 +14,7 @@ class GetPage {
     })
   }
 
-  private async parsSource(htmlText: any): Promise<Array<ImageItem>> {
+   async parsSource(htmlText) {
     return htmlText
       .match(/src="(.)+?"/gm)
       .filter(str => str.includes('thumbnails'))

@@ -1,7 +1,7 @@
-import GetPage from "./utils/GetPage";
+import GetPage from "./utils/GetPage.mjs";
 
 class BooruApi {
-  public async GetImage(tags: string[], page: number) {
+  async GetImage(tags, page) {
     return GetPage.getHtml(tags, page);
   }
 }

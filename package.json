@@ -1,10 +1,11 @@
 {
   "name": "booruwrapperapi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "api wrapper",
   "main": "index.ts",
   "scripts": {
-    "test": "ts-node-dev --watch ./src --transpile-only ./src/test.ts"
+    "test_ts": "ts-node-dev --watch ./src --transpile-only ./src/test.ts",
+    "test_js": "node ./src/test.mjs"
   },
   "keywords": [
     "api"
